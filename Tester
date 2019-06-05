@@ -1,0 +1,95 @@
+ const int valueOne = 2;
+  const int valueTwo = 4;
+  const int valueThree = 6;
+  const int valueFour = 8;
+  const int valueFive = 10; 
+  const int valueSix = 23;
+  const int valueSeven = 21;
+
+  int slide;
+  bool wait;
+  
+void setup() {
+  Serial.begin(9600);
+  pinMode(valueOne, OUTPUT);
+  pinMode(valueTwo, OUTPUT);
+  pinMode(valueThree, OUTPUT);
+  pinMode(valueFour, OUTPUT);
+  pinMode(valueFive, OUTPUT);
+  pinMode(valueSix, OUTPUT);
+  pinMode(valueSeven, OUTPUT);
+  digitalWrite(valueOne, LOW);
+  digitalWrite(valueTwo, LOW);
+  digitalWrite(valueThree, LOW);
+  digitalWrite(valueFour, LOW);
+  digitalWrite(valueFive, LOW);
+  digitalWrite(valueSix, LOW);
+  digitalWrite(valueSeven, LOW);
+}
+
+void loop() {
+//  Serial.println("Enter a button to be changed: 0 - 6");
+while (Serial.available()) {
+       delay(10);  
+         if (Serial.available() >0) {
+       slide = Serial.read();
+       Serial.println(slide);
+       pushButton(slide);
+       delay(30);
+       printCurrent();
+       }
+       }
+//  if (Serial.available() > 0) {
+//    slide = Serial.read();
+//    pushButton(slide);
+//    
+//  }
+//readInput();
+//delay(2000);
+
+}
+
+//bool readInput() {
+// Serial.println("Enter a button to be changed: 0 - 6"); 
+// Serial.print();
+//
+//}
+
+void printCurrent() {
+  Serial.print(digitalRead(valueOne));
+  Serial.print(digitalRead(valueTwo));
+  Serial.print(digitalRead(valueThree));
+  Serial.print(digitalRead(valueFour));
+  Serial.print(digitalRead(valueFive));
+  Serial.print(digitalRead(valueSix));
+  Serial.println(digitalRead(valueSeven));
+}
+
+void pushButton(char ted) {
+  switch(ted){
+  case 0:
+  digitalWrite(valueOne, !digitalRead(valueOne));
+  break;
+  case 1:
+  digitalWrite(valueTwo, !digitalRead(valueTwo));
+  break;
+  case 2:
+  digitalWrite(valueThree, !digitalRead(valueThree));
+  break;
+  case 3:
+  digitalWrite(valueFour, !digitalRead(valueFour));
+  break;
+  case 4:
+  digitalWrite(valueFive, !digitalRead(valueFive));
+  break;
+  case 5:
+  digitalWrite(valueSix, !digitalRead(valueSix));
+  break;
+  case 6:
+  digitalWrite(valueSeven, !digitalRead(valueSeven));
+  break;
+  default:
+  Serial.println("Not a valid input, enter 0 - 6.");
+  break;
+  }
+} 
