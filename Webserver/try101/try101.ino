@@ -1,6 +1,6 @@
-
-#include <SPI.h>
 #include <Ethernet.h>
+#include <SPI.h>
+
 
 // Enter a MAC address and IP address for your controller below.
 // The IP address will be dependent on your local network:
@@ -13,17 +13,19 @@ IPAddress ip(192, 168, 0, 2);
 // (port 80 is default for HTTP):
 EthernetServer server(80);
 
-int led = 8;
+
 String readString;
+int led = 8;
+
 void setup() {
 
-pinMode(led, OUTPUT);
+pinMode(8, OUTPUT);
 
   
  //pinMode(2, INPUT);
 //digitalWrite(4, HIGH);
  // You can use Ethernet.init(pin) to configure the CS pin
- Ethernet.init(10);  // Most Arduino shields
+   Ethernet.init(10);  // Most Arduino shields
  //Ethernet.init(5);   // MKR ETH shield
  //Ethernet.init(0);   // Teensy 2.0
  //Ethernet.init(20);  // Teensy++ 2.0
@@ -86,11 +88,12 @@ void loop() {
        client.println("<!DOCTYPE html>");
        client.println("<html>");
        client.println("<head>");
-       client.println("<title>Webserver</title>");
+       client.println("<title>ITITITinc Labs</title>");
+       client.println("<title>ITITITinc Labs</title>");
        client.println("</head>");
        client.println("<body>");
-       client.println("a href=\"/?button1on\"\"><button>LED ON</button></a>");
-       client.println("a href=\"/?button2off\"\"><button>LED off</button></a>");
+       client.println("<a href=\"/?buttonon\"\"><button>LED ON</button></a>");
+       client.println("<a href=\"/?buttonoff\"\"><button>LED off</button></a>");
          client.println("<FORM ACTION='/' method=get >");
 
           client.println("Pin 4 'on' or 'off': <INPUT TYPE=TEXT NAME='LED' VALUE='' SIZE='25' MAXLENGTH='50'><BR>");
@@ -98,19 +101,23 @@ void loop() {
           client.println("<INPUT TYPE=SUBMIT NAME='submit' VALUE='Change Pin 4!'>");
 
           client.println("</FORM>");
-       client.println("<body style=background-color:grey>");
+       client.println("<body style=background-color:#1f1f1f;color=white>");
 
-       delay(1);
-       client.stop();
 
-       if (readString.indexOf("?button1on")>0) {
+
+       if (readString.indexOf("buttonon")>=0) {
+        client.println("Making LED high.");
          digitalWrite(led, HIGH);
+       
        }
+        if (readString.indexOf("buttonoff")>=0) {
+        client.println("Making LED low.");
 
-        if (readString.indexOf("?button2on")>0) {
          digitalWrite(led, LOW);
        }
 
+       delay(1);
+       client.stop();
        readString = "";
       }
      }
